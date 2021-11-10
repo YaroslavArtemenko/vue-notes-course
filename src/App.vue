@@ -162,5 +162,7 @@ export default {
 </script>
 
 <style>
-
+.container {
+  max-width: 800px;
+}
 </style>
