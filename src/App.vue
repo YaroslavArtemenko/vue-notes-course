@@ -23,8 +23,10 @@
           <!-- note list-->
           <Notes
               :notes="notes"
+              @remove="removeNote"
           >
           </Notes>
+
         </div>
 
       </section>
@@ -89,6 +91,9 @@ export default {
       this.message = null
       this.note.title = ''
       this.note.descr = ''
+    },
+    removeNote (index) {
+      this.notes.splice(index, 1)
     }
   }
 }
