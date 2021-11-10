@@ -19,9 +19,18 @@
           >
           </NewNote>
           <!-- title -->
-          <div class="note-header">
+          <div class="note-header" style="margin: 36px 0;">
             <h1>{{ title }}</h1>
 
+            <!-- search -->
+            <Search
+                :value="search"
+                placeholder="Find your note"
+                @search="search = $event"
+            >
+            </Search>
+
+            <!-- icons control -->
             <div class="icons">
               <svg :class="{ active: grid}"
                    @click="grid = true"
@@ -53,7 +62,7 @@
 
           <!-- note list-->
           <Notes
-              :notes="notes"
+              :notes="notesFilter"
               :grid="grid"
               @remove="removeNote"
           >
@@ -73,9 +82,11 @@
 import Message from './components/Message.vue'
 import NewNote from "./components/NewNote";
 import Notes from "./components/Notes";
+import Search from "./components/Search";
 
 export default {
   components: {
+    Search,
     Notes,
     NewNote,
     Message
@@ -83,6 +94,7 @@ export default {
   data() {
     return {
       title: 'Notes App',
+      search: '',
       message: null,
       grid: true,
       note: {
@@ -108,6 +120,23 @@ export default {
       ]
     }
   },
+  computed: {
+    notesFilter () {
+      let array = this.notes,
+          search = this.search
+      if(!search) return array
+      // Small
+      search = search.trim().toLowerCase() //trim удаляет пробелы
+      // Filter
+      array = array.filter(function (item) {
+        if (item.title.toLowerCase().indexOf(search) !== -1) { //проверка на то, существует ли элемент, если да - то возвращаем его
+          return item
+        }
+      })
+      // Error
+      return array
+    }
+  },
   methods: {
     addNote() {
       // console.log(this.note)
@@ -128,7 +157,7 @@ export default {
     removeNote(index) {
       this.notes.splice(index, 1)
     }
-  }
+  },
 }
 </script>
 

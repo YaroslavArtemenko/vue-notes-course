@@ -4,7 +4,7 @@
     <input v-model="note.title" type="text">
     <label>Description</label>
     <textarea v-model="note.descr"></textarea>
-    <button class="btn btnPrimary" style="margin-top: 10px" @click="addNote">New Note</button>
+    <button class="btn btnPrimary" style="margin-top: 10px;margin-bottom: 10px;" @click="addNote">New Note</button>
   </div>
 </template>
 
